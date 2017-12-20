@@ -81,11 +81,11 @@ with open(args.output, 'w') as flog:
     while True:
         line = sys.stdin.readline()
         words = filter(None, line.split(' ')) 
-        if len(words) > 2:
+        if len(words) > 3:
             try:
-                roll = float(words[0])*grad2rad
-                pitch = float(words[1])*grad2rad
-                yaw = float(words[2])*grad2rad
+                roll = float(words[1])*grad2rad
+                pitch = float(words[2])*grad2rad
+                yaw = float(words[3])*grad2rad
             except:
                 continue
             flog.write(line)
