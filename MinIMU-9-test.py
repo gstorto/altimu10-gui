@@ -63,7 +63,9 @@ arrow(color=color.green,axis=(1,0,0), shaftwidth=0.02, fixedwidth=1)
 arrow(color=color.green,axis=(0,-1,0), shaftwidth=0.02 , fixedwidth=1)
 arrow(color=color.green,axis=(0,0,-1), shaftwidth=0.02, fixedwidth=1)
 # labels
-label(pos=(0,0,0.8),text="Rocket Model",box=0,opacity=0)
+label(pos=(0,0,0.85),text="Rocket Model",box=0,opacity=0)
+altitude_l = label(pos=(0,0.9,0),text="0m",box=0,opacity=0)
+temperature_l = label(pos=(0,0.91,-0.1),text="0.0c",box=0,opacity=0)
 label(pos=(1,0,0),text="X",box=0,opacity=0)
 label(pos=(0,-1,0),text="Y",box=0,opacity=0)
 label(pos=(0,0,-1),text="Z",box=0,opacity=0)
@@ -77,15 +79,20 @@ pitch=0
 yaw=0
 
 args = parse_args()
+altitude_ref = None
 with open(args.output, 'w') as flog:
     while True:
         line = sys.stdin.readline()
         words = filter(None, line.split(' ')) 
-        if len(words) > 3:
+        if len(words) > 11:
             try:
                 roll = float(words[1])*grad2rad
                 pitch = float(words[2])*grad2rad
                 yaw = float(words[3])*grad2rad
+                altitude = float(words[10])
+                if (altitude_ref == None):
+                    altitude_ref = altitude
+                temperature = float(words[11])
             except:
                 continue
             flog.write(line)
@@ -104,3 +111,6 @@ with open(args.output, 'w') as flog:
             plat_arrow.length=0.8
             p_line.axis=axis
             p_line.up=up
+            # Updated Altitude/Temp
+            altitude_l.text = "{0:.0f}m".format(altitude-altitude_ref)
+            temperature_l.text = "{0:.1f}c".format(temperature)
