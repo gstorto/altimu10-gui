@@ -91,10 +91,10 @@ with open(args.output, 'w') as flog:
             flog.write(line)
 
             # Updated 3D-model
-            axis=(cos(pitch)*cos(yaw),-cos(pitch)*sin(yaw),sin(pitch)) 
+            axis=(cos(pitch)*cos(yaw),-cos(pitch)*sin(yaw),-sin(pitch)) 
             up=(sin(roll)*sin(yaw)+cos(roll)*sin(pitch)*cos(yaw),
                 sin(roll)*cos(yaw)-cos(roll)*sin(pitch)*sin(yaw),
-                -cos(roll)*cos(pitch))
+                cos(roll)*cos(pitch))
             platform.axis=axis
             platform.up=up
             platform.length=1.0
